@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="Icon.png">
+    <title>Progress Tracker</title>
+    <script>
+        function saveProgress() {
+            let surahCompleted = document.getElementById("surahCompleted").value;
+            let pageCompleted = document.getElementById("pageCompleted").value;
+            let juzCompleted = document.getElementById("juzCompleted").value;
+            
+            let totalSurahs = 114;
+            let totalPages = 604;
+            let totalJuz = 30;
+            
+            if (surahCompleted && totalSurahs > 0) {
+                let progress = (surahCompleted / totalSurahs) * 100;
+                document.getElementById("progressBarSurah").style.width = progress + "%";
+                document.getElementById("progressTextSurah").innerText = progress.toFixed(1) + "%";
+                localStorage.setItem("progressSurah", progress);
+            }
+            if (pageCompleted && totalPages > 0) {
+                let progress = (pageCompleted / totalPages) * 100;
+                document.getElementById("progressBarPage").style.width = progress + "%";
+                document.getElementById("progressTextPage").innerText = progress.toFixed(1) + "%";
+                localStorage.setItem("progressPage", progress);
+            }
+            if (juzCompleted && totalJuz > 0) {
+                let progress = (juzCompleted / totalJuz) * 100;
+                document.getElementById("progressBarJuz").style.width = progress + "%";
+                document.getElementById("progressTextJuz").innerText = progress.toFixed(1) + "%";
+                localStorage.setItem("progressJuz", progress);
+            }
+        }
+
+        function loadProgress() {
+            let savedProgressSurah = localStorage.getItem("progressSurah");
+            let savedProgressPage = localStorage.getItem("progressPage");
+            let savedProgressJuz = localStorage.getItem("progressJuz");
+            
+            if (savedProgressSurah) {
+                document.getElementById("progressBarSurah").style.width = savedProgressSurah + "%";
+                document.getElementById("progressTextSurah").innerText = savedProgressSurah + "%";
+            }
+            if (savedProgressPage) {
+                document.getElementById("progressBarPage").style.width = savedProgressPage + "%";
+                document.getElementById("progressTextPage").innerText = savedProgressPage + "%";
+            }
+            if (savedProgressJuz) {
+                document.getElementById("progressBarJuz").style.width = savedProgressJuz + "%";
+                document.getElementById("progressTextJuz").innerText = savedProgressJuz + "%";
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #1e1e1e;
+            color: white;
+        }
+        .progress-container {
+            width: 80%;
+            background-color: #333;
+            border-radius: 5px;
+            margin: 20px auto;
+            height: 30px;
+            position: relative;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #4caf50;
+            width: 0%;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+        input {
+            padding: 10px;
+            margin: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body onload="loadProgress()">
+    <h1>Progress Tracker</h1>
+    <label>Surah Completed: <input type="number" id="surahCompleted" min="0" max="114"></label>
+    <p>Total Surahs: 114</p>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBarSurah">
+            <span id="progressTextSurah">0%</span>
+        </div>
+    </div>
+    
+    <label>Pages Completed: <input type="number" id="pageCompleted" min="0" max="604"></label>
+    <p>Total Pages: 604</p>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBarPage">
+            <span id="progressTextPage">0%</span>
+        </div>
+    </div>
+    
+    <label>Juz Completed: <input type="number" id="juzCompleted" min="0" max="30"></label>
+    <p>Total Juz: 30</p>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBarJuz">
+            <span id="progressTextJuz">0%</span>
+        </div>
+    </div>
+    
+    <button onclick="saveProgress()">Save Progress</button>
+</body>
+</html>
